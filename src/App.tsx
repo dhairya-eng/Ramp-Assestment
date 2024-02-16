@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useMemo, useState } from "react"
+import { Fragment, useCallback, useEffect, useState } from "react"
 import { InputSelect } from "./components/InputSelect"
 import { Instructions } from "./components/Instructions"
 import { Transactions } from "./components/Transactions"
@@ -12,7 +12,7 @@ export function App() {
   const { data: employees, ...employeeUtils } = useEmployees()
   const { data: paginatedTransactions, ...paginatedTransactionsUtils } = usePaginatedTransactions()
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
-  const [isLoading, setIsLoading] = useState(false)
+ 
   const[showMore,setShowMore]=useState(true)
   const[transactions,setTransactions]=useState<Transaction[]|null>(null)
   useEffect(()=>{
@@ -33,19 +33,16 @@ export function App() {
       }
     }
   },[paginatedTransactions, transactionsByEmployee])
-  // const transactions1 = useMemo(
-  //   () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
-  //   [paginatedTransactions, transactionsByEmployee]
-  // )
+  
 
   const loadAllTransactions = useCallback(async () => {
-    setIsLoading(true)
+   
     transactionsByEmployeeUtils.invalidateData()
 
     await employeeUtils.fetchAll()
     await paginatedTransactionsUtils.fetchAll()
 
-    setIsLoading(false)
+    
   }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
 
   const loadTransactionsByEmployee = useCallback(

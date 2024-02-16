@@ -15,7 +15,7 @@ export const Transactions: TransactionsComponent = ({ transactions }) => {
         value: newValue,
       })
     },
-    [fetchWithoutCache]
+    [ clearCache,fetchWithoutCache]
   )
 
   if (transactions === null) {
